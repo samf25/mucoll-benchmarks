@@ -11,15 +11,26 @@ def makeDigiAlgList(the_args):
         algList.append(new_overlay_full(the_args))
 
     # Tracker Digitization
-    from digi_components.tracking_vertex import new_VXDBarrel, new_VXDEndcap
-    from digi_components.tracking_inner import new_ITBarrel, new_ITEndcap
-    from digi_components.tracking_outer import new_OTBarrel, new_OTEndcap
-    algList.append(new_VXDBarrel(the_args))
-    algList.append(new_VXDEndcap(the_args))
-    algList.append(new_ITBarrel(the_args))
-    algList.append(new_ITEndcap(the_args))
-    algList.append(new_OTBarrel(the_args))
-    algList.append(new_OTEndcap(the_args))
+    if (the_args.doRealisticDigi):
+        from digi_components.tracking_vertex import new_VXDBarrel_Realistic, new_VXDEndcap_Realistic
+        from digi_components.tracking_inner import new_ITBarrel_Realistic, new_ITEndcap_Realistic
+        from digi_components.tracking_outer import new_OTBarrel_Realistic, new_OTEndcap_Realistic
+        algList.append(new_VXDBarrel_Realistic(the_args))
+        algList.append(new_VXDEndcap_Realistic(the_args))
+        algList.append(new_ITBarrel_Realistic(the_args))
+        algList.append(new_ITEndcap_Realistic(the_args))
+        algList.append(new_OTBarrel_Realistic(the_args))
+        algList.append(new_OTEndcap_Realistic(the_args))
+    else:
+        from digi_components.tracking_vertex import new_VXDBarrel, new_VXDEndcap
+        from digi_components.tracking_inner import new_ITBarrel, new_ITEndcap
+        from digi_components.tracking_outer import new_OTBarrel, new_OTEndcap
+        algList.append(new_VXDBarrel(the_args))
+        algList.append(new_VXDEndcap(the_args))
+        algList.append(new_ITBarrel(the_args))
+        algList.append(new_ITEndcap(the_args))
+        algList.append(new_OTBarrel(the_args))
+        algList.append(new_OTEndcap(the_args))
 
     # EM, Hadronic, Muon Calorimeter Digitization
     from digi_components.calorimetry_EM import new_ECalBarrelDigi, new_ECalBarrelReco

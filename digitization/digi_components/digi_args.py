@@ -64,5 +64,12 @@ def get_digi_args():
         type=int,
         default=42,
     )
+    
+    parser.add_argument(
+        "--doRealisticDigi",
+        help="Toggle realistic digitization",
+        action="store_true",
+        default=False,
+    )
 
     return parser.parse_known_args()[0]

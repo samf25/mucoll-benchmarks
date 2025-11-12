@@ -1,0 +1,4 @@
+digitization/__pycache__/*
+reconstruction/__pycache__/*
+digitization/digi_components/__pycache__/*
+reconstruction/reco_components/__pycache__/*
