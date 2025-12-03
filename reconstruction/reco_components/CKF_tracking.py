@@ -5,7 +5,7 @@ def CKFTracker_cfg(args):
     """
     Create a new ACTSSeededCKFTrackingAlg instance for CKF tracking.
     """
-    if DetectorSchema == "MAIA_v0":
+    if args.DetectorSchema == "MAIA_v0":
         return ACTSSeededCKFTrackingAlg(
             "Reconstructor",
             MatFile = args.MatFile,
