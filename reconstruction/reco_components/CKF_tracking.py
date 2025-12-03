@@ -1,17 +1,18 @@
 from GaudiKernel.Constants import INFO, WARNING, DEBUG
 from Configurables import ACTSSeededCKFTrackingAlg, ACTSDuplicateRemoval, FilterTracksAlg, TrackTruthAlg, RefitFinal
 
-def CKFTracker_cfg(DetectorSchema, MatFile, TGeoFile, TGeoDescFile):
+def CKFTracker_cfg(args):
     """
     Create a new ACTSSeededCKFTrackingAlg instance for CKF tracking.
     """
     if DetectorSchema == "MAIA_v0":
         return ACTSSeededCKFTrackingAlg(
             "Reconstructor",
-            MatFile = MatFile,
-            TGeoFile = TGeoFile,
-            TGeoDescFile = TGeoDescFile,
-            DetectorSchema = DetectorSchema,
+            MatFile = args.MatFile,
+            TGeoFile = args.TGeoFile,
+            TGeoDescFile = args.TGeoDescFile,
+            NumThreads = args.TrackingThreads,
+            DetectorSchema = args.DetectorSchema,
             RunCKF = "True",
             CKF_Chi2CutOff = 10,
             SeedFinding_RMax = 150,
@@ -34,10 +35,11 @@ def CKFTracker_cfg(DetectorSchema, MatFile, TGeoFile, TGeoDescFile):
     else:
         return ACTSSeededCKFTrackingAlg(
             "Reconstructor",
-            MatFile = MatFile,
-            TGeoFile = TGeoFile,
-            TGeoDescFile = TGeoDescFile,
-            DetectorSchema = DetectorSchema,
+            MatFile = args.MatFile,
+            TGeoFile = args.TGeoFile,
+            TGeoDescFile = args.TGeoDescFile,
+            NumThreads = args.TrackingThreads,
+            DetectorSchema = args.DetectorSchema,
             RunCKF = "True",
             CKF_Chi2CutOff = 10,
             SeedFinding_RMax = 150,
@@ -88,12 +90,13 @@ def track_filter_cfg():
         OutputLevel = INFO
     )
 
-def track_truth_cfg():
+def track_truth_cfg(args):
     """
     Create a new TrackTruth instance for track truth matching.
     """
     return TrackTruthAlg(
         "TruthMatcher",
+        NumThreads = args.TrackingThreads,
         InputTrackCollectionName = ["SiTracks"],
         InputTrackerHit2SimTrackerHitRelationName = ["MergedTrackerHitsRelations"],
         OutputParticle2TrackRelationName = ["SiTrackRelations"],
